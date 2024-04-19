@@ -1,28 +1,34 @@
 package oop.money;
 
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CashDesk {
 
-    static double toPay = 34;
-
-    static double Payed = 50;
-
-    public static List<Double> pay() {
+    public static List<Double> pay(double toPay, double Payed) {
 
         if (Payed < toPay) {
             throw new IllegalArgumentException("Zu wenig bezahlt!");
         }
 
-        double temp = 0;
+        int difference = (int) (Payed * 100 - toPay * 100);
 
-        temp = toPay - Payed;
+        System.out.println("Du hast " + Payed + "€ bezahlt bei einem Artikel Preis von " + toPay + "€. Du bekommst also " + difference + "€ zurück.");
 
-        System.out.println("Du hast " + Payed + "€ bezahlt bei einem Artikel Preis von " + toPay + "€. Du bekommst also " + temp + "€ zurück.");
+        List<Double> change;
+        change = new ArrayList<>();
+        double[] coins = new double[] {50.00, 20.00, 10.00, 5.00, 2.00, 1.00, 0.50, 0.20, 0.10, 0.05, 0.02, 0.01};
 
-        List<Double> change = new ArrayList<>();
+        for (double c : coins) {
+            while (difference >= c*100) {
+                difference -= (int) (c*100);
+                change.add(c);
+            }
+        }
+
+        int remaining = difference;
 
         return change;
     }
