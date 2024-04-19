@@ -3,6 +3,7 @@ package oop.money;
 import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CashDesk {
@@ -11,6 +12,11 @@ public class CashDesk {
 
         if (Payed < toPay) {
             throw new IllegalArgumentException("Zu wenig bezahlt!");
+        }
+
+        if (toPay <= 0) {
+            double change = toPay*-1;
+            return Collections.singletonList(change);
         }
 
         int difference = (int) (Payed * 100 - toPay * 100);
